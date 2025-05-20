@@ -1,17 +1,17 @@
+using AOT;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItempoolCreight : MonoBehaviour
 {
-    [SerializeField] GameObject _itemprefap;
-    public GameObject[] Itempool { get; set; } = new GameObject[10];
+    public static ItempoolCreight Instance { get; private set; }
+    [SerializeField] GameObject _itemprefab;
+    public GameObject Itemprefab { get => _itemprefab; }
+    public Stack<GameObject> _itemPool = new Stack<GameObject>();
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            GameObject itemObject = GameObject.Instantiate(_itemprefap);
-            itemObject.SetActive(false);
-            Itempool[i] = itemObject;
-        }
+        if (Instance == null)
+            Instance = this;
     }
 }

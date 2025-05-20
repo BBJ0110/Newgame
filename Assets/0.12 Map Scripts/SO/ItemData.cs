@@ -5,6 +5,7 @@ public class ItemData : ScriptableObject
 {
     public ItemType type;
     public string Name;
+    public string Explaint;
     public Sprite Icon;
     public ItemGrade Grade;
     public bool IsOverItem;

@@ -9,8 +9,8 @@ public class ShopItem : MonoBehaviour
     [SerializeField] TextMeshPro text; 
     private RandomItem _randomItem;
     SpriteRenderer stand;
-    SpriteRenderer sprite;
-    IItem _currentItem;
+    SpriteRenderer itemSprite;
+    Item _currentItem;
     private void Awake()
     {
         _randomItem = FindFirstObjectByType<RandomItem>();
@@ -18,22 +18,22 @@ public class ShopItem : MonoBehaviour
     private void Start()
     {
         stand = GetComponentInParent<SpriteRenderer>();
-        sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
-        IItem itemScripte = _randomItem.GetRandomItem(Roomtype.ShopRroom);
+        itemSprite = gameObject.GetComponentInChildren<SpriteRenderer>();
+        IItem itemScripte = _randomItem.GetRandomItem(Roomtype.ShopRoom);
         if (itemScripte == null) gameObject.SetActive(false);
-        ItemSetting(itemScripte);
+        ItemSetting((Item)itemScripte);
 
     }
-    private void ItemSetting(IItem item)
+    private void ItemSetting(Item item)
     {
-        sprite.sprite = item.GetItemData().Icon;
+        itemSprite.sprite = (item).ItemData.Icon;
         stand.sprite = StandSprite(item);
-        Component additem = gameObject.AddComponent((item as MonoBehaviour).GetType());
-        ((IItem)additem).SetitemData(item.GetItemData());
-        _currentItem = (IItem)additem;
-        text.text = _currentItem.GetItemData().Price.ToString();
+        Component additem = gameObject.AddComponent(item.GetType());
+        ((Item)additem).ItemData = item.ItemData;
+        _currentItem = (Item)additem;
+        text.text = _currentItem.ItemData.Price.ToString();
     }
-    private Sprite StandSprite(IItem item) => item.GetItemData().type switch
+    private Sprite StandSprite(Item item) => item.ItemData.type switch
     {
         ItemType.stat => _statStand,
         _ => _basicStand

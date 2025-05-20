@@ -1,24 +1,12 @@
 using UnityEngine;
 
-public class Meat : MonoBehaviour, IItem
+public class Meat : Item, IItem
 {
-    [SerializeField] private ItemData _itemData;
-
-    public ItemData GetItemData()
+    public bool Use()
     {
-        return _itemData;
-    }
-    public void SetitemData(ItemData item)
-    {
-        _itemData = item;
-    }
-    public bool Use(GameObject trget)
-    {
-        PlayerStatus player = trget.GetComponent<PlayerStatus>();
+        PlayerStatus player = PlayerStatus.Instance;
         player.Hpmax += 2;
         player.Hp += 2;
-        PlayerInventory inventory = trget.GetComponent<PlayerInventory>();
-        inventory.AbbInventory(this);
         return true;
     }
 }

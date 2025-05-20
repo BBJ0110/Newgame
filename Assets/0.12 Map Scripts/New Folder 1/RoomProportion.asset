@@ -15,10 +15,10 @@ MonoBehaviour:
   Room: 2
   itemProportions:
   - Reward: 0
-    Propor: 10
+    Propor: 0
   - Reward: 1
-    Propor: 10
+    Propor: 0
   - Reward: 2
     Propor: 1
   - Reward: 5
-    Propor: 20
+    Propor: 0

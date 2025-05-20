@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a3c7851ffca63f43a33eaefb3a15cf5, type: 3}
+  m_Name: HpPtinon_L
+  m_EditorClassIdentifier: 
+  type: 1
+  Name: 
+  Explaint: 
+  Icon: {fileID: -41840000055627830, guid: b0e8a45a458c7a643a5e6a2201ae0442, type: 3}
+  Grade: 1
+  IsOverItem: 0
+  Price: 5

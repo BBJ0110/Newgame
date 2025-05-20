@@ -15,8 +15,8 @@ MonoBehaviour:
   Room: 1
   itemProportions:
   - Reward: 1
-    Propor: 2
+    Propor: 0
   - Reward: 2
     Propor: 3
   - Reward: 4
-    Propor: 1
+    Propor: 3

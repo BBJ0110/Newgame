@@ -1,25 +1,13 @@
 using UnityEngine;
 
-public class Hamburger : MonoBehaviour, IItem
+public class Hamburger : Item, IItem
 {
-    [SerializeField] private ItemData _itemData;
-
-    public ItemData GetItemData()
+    public bool Use()
     {
-        return _itemData;
-    }
-    public void SetitemData(ItemData item)
-    {
-        _itemData = item;
-    }
-    public bool Use(GameObject trget)
-    {
-        PlayerStatus player = trget.GetComponentInParent<PlayerStatus>();
+        PlayerStatus player = PlayerStatus.Instance;
         player.Hpmax += 4;
         player.Hp += 4;
-        player.Speed -= 0.5f;
-        PlayerInventory inventory = trget.GetComponentInParent<PlayerInventory>();
-        inventory.AbbInventory(this);
+        player.Speed -= 1f;
         return true;
     }
 }

@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: -86418345, guid: 3a37cfef2917d31409eb869ef80ae4b2, type: 3}
+  m_Sprite: {fileID: -687529422, guid: b0e8a45a458c7a643a5e6a2201ae0442, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 10.094738, y: 2.0006633, z: 9.23586, w: 2.5396771}
+  m_margin: {x: 10.094738, y: 2.0006633, z: 9.547278, w: 2.5396771}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -358,9 +358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5526a9000fbaf094794769938cf9cdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicStand: {fileID: -86418345, guid: 3a37cfef2917d31409eb869ef80ae4b2, type: 3}
-  _statStand: {fileID: -1870535712, guid: 3a37cfef2917d31409eb869ef80ae4b2, type: 3}
-  _gunstand: {fileID: 816837867, guid: 3a37cfef2917d31409eb869ef80ae4b2, type: 3}
+  _basicStand: {fileID: -687529422, guid: b0e8a45a458c7a643a5e6a2201ae0442, type: 3}
+  _statStand: {fileID: 1084898780, guid: b0e8a45a458c7a643a5e6a2201ae0442, type: 3}
+  _gunstand: {fileID: -2136339684, guid: b0e8a45a458c7a643a5e6a2201ae0442, type: 3}
   text: {fileID: 1174270007749522328}
 --- !u!61 &1933012347131214464
 BoxCollider2D:
@@ -418,6 +418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1344566653826827216}
   - component: {fileID: 6130261299193739356}
+  - component: {fileID: 7747191433678801845}
   m_Layer: 0
   m_Name: GameObject (4)
   m_TagString: Stend
@@ -434,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 8388656065314102956}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -484,14 +485,36 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -6785928222664068552, guid: 3a37cfef2917d31409eb869ef80ae4b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7747191433678801845
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388656065314102956}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee6c15ebce8e57849ad6495a06925099, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

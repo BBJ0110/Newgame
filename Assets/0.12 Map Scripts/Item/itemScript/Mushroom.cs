@@ -1,24 +1,12 @@
 using UnityEngine;
 
-public class Mushroom : MonoBehaviour, IItem
+public class Mushroom : Item, IItem
 {
-    [SerializeField] private ItemData _itemData;
-
-    public ItemData GetItemData()
+    public bool Use()
     {
-        return _itemData;
-    }
-    public void SetitemData(ItemData item)
-    {
-        _itemData = item;
-    }
-    public bool Use(GameObject trget)
-    {
-        PlayerStatus player = trget.GetComponentInParent<PlayerStatus>();
-        PlayerInventory inventory = trget.GetComponentInParent<PlayerInventory>();
+        PlayerStatus player = PlayerStatus.Instance;
         player.Speed += 1;
         player.gameObject.transform.localScale += new Vector3(1, 1,0);
-        inventory.AbbInventory(this);
         return true;
     }
 }

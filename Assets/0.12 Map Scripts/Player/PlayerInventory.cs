@@ -1,13 +1,29 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 public class PlayerInventory : MonoBehaviour
 {
-    public List<IItem> Inventory { get; private set; } = new List<IItem>();
-
-    public void AbbInventory(IItem item)
+    static public PlayerInventory Instance { get; private set; }
+    [field:SerializeField]public List<ItemData> Inventory { get; private set; } = new List<ItemData>();
+    private void Awake()
     {
-        Inventory.Add(item);
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+    public void AbbInventory(Item item)
+    {
+        string name = item.ItemData.Name, explaint = item.ItemData.Explaint;
+            Debug.Log(item);
+        Inventory.Add(item.ItemData);
+        ItemGetUI.Instance.itemGeting(name, explaint);
+    }
+    
 
 }

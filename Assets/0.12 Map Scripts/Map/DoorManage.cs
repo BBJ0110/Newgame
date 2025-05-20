@@ -4,10 +4,10 @@ public class DoorManage : MonoBehaviour
 {
     [SerializeField] private Vector2 _roomSize;
     private MapMake _roomMaker;
-    private Room _currentRoom;
+    private Room _currentRoom = new Room();
     private CameraManage _camera;
-    private bool _roomLock = false;
-
+    private bool RoomLock { get; set; }
+    private Doors door;
     private void Awake()
     {
         _roomMaker = GameObject.FindFirstObjectByType<MapMake>().GetComponent<MapMake>();
@@ -20,23 +20,24 @@ public class DoorManage : MonoBehaviour
 
     public void RoomMove(Collider2D collision, Direction doorDir)
     {
+        if (RoomLock) return;
         Room _nextRoom;
         if (_currentRoom._connectRoom.ContainsKey(doorDir))
         {
-            if (!_roomLock)
-            {
-                _nextRoom = _currentRoom._connectRoom[doorDir];
-                Vector2 _nextRoomPos = _nextRoom._roomPos;
-                collision.transform.position = _nextRoomPos * _roomSize + DoorExit(doorDir);
-                _camera.CameraSet(_nextRoomPos * _roomSize);
-                _currentRoom = _nextRoom;
-            }
+            _nextRoom = _currentRoom._connectRoom[doorDir];
+            Vector2 _nextRoomPos = _nextRoom._roomPos;
+            collision.transform.position = _nextRoomPos * _roomSize + DoorExit(doorDir);
+            _camera.CameraSet(_nextRoomPos * _roomSize);
+            _currentRoom = _nextRoom;
+            PlayerStatus.Instance.SetMoveRoomItem();
         }
-        if (!_currentRoom._isClearRoom)
+        if (_roomMaker.RoomObject[_currentRoom].TryGetComponent<RoomManager>(out RoomManager roomManager))
         {
-            if (_roomMaker.RoomObject[_currentRoom].TryGetComponent<RoomManager>(out RoomManager roomManager))
+            if (!_currentRoom._isClearRoom)
             {
-                _roomLock = true;
+                RoomLock = true;
+                if(door = roomManager.gameObject.GetComponentInChildren<Doors>())
+                    door.SetLock(true,_currentRoom);
                 roomManager.StartSpawnManager();
             }
         }
@@ -53,7 +54,7 @@ public class DoorManage : MonoBehaviour
     public void SeeDoor(Room room, GameObject map)
     {
         Doors _doors = map.GetComponentInChildren<Doors>();
-        foreach(var cr in room._connectRoom)
+        foreach (var cr in room._connectRoom)
         {
             _doors.GetDoors(cr.Key).SetActive(false);
             if (room._isBossRoom || cr.Value._isBossRoom)
@@ -63,7 +64,12 @@ public class DoorManage : MonoBehaviour
     public void CurrentRoomClear()
     {
         _currentRoom._isClearRoom = true;
-        _roomLock = false;
+        RoomLock = false;
+        
+        if (door = _roomMaker.RoomObject[_currentRoom].GetComponentInChildren<Doors>())
+        {
+            door.SetLock(false,_currentRoom);
+        }
     }
 
 

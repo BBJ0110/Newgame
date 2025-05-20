@@ -1,23 +1,11 @@
 using UnityEngine;
 
-public class HpPotion_S : MonoBehaviour, IItem
+public class HpPotion_S : Item, IItem
 {
     [SerializeField] private int _hpRecoveryStat = 1;
-    [SerializeField] private ItemData _itemData;
-
-    public ItemData GetItemData()
+    public bool Use()
     {
-        return _itemData;
-    }
-
-    public void SetitemData(ItemData item)
-    {
-        _itemData = item;
-    }
-
-    public bool Use(GameObject trget)
-    {
-        PlayerStatus player = trget.GetComponent<PlayerStatus>();
+        PlayerStatus player = PlayerStatus.Instance;
         if (player.Hp == player.Hpmax) return false;
 
         player.Hp += _hpRecoveryStat;

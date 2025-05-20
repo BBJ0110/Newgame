@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class Doors : MonoBehaviour
@@ -13,11 +14,19 @@ public class Doors : MonoBehaviour
     [SerializeField] private GameObject _downBossDoor;
     [SerializeField] private GameObject _rightBossDoor;
     [SerializeField] private GameObject _leftBossDoor;
+    Room currentRoom = new();
 
+    [Header("Door")]
+    [SerializeField] private DoorBase[] doors;
     private bool _roomLock = false;
-    public void SetLock()
+    public void SetLock(bool Lock,Room room)
     {
-        _roomLock = !_roomLock;
+        currentRoom = room;
+        _roomLock = Lock;
+        for(int i = 0; i< doors.Length;i++)
+        {
+            doors[i].SetLockDoor(_roomLock,currentRoom);
+        }
     }
     public GameObject GetDoors(Direction dir) => dir switch
     {

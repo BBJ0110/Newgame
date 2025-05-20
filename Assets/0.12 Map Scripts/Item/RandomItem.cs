@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 public enum ItemType {coin, potion, stat}
 public enum RewardType {coin, potion, stat, boss, shop, non}
-public enum Roomtype {BossRoom, ShopRroom, NormalRoom}
+public enum Roomtype {BossRoom, ShopRoom, NormalRoom}
 
 public class RandomItem : MonoBehaviour
 {
@@ -12,22 +12,16 @@ public class RandomItem : MonoBehaviour
     [SerializeField] private List<ItemGrideProportion> _itemGrideProportion;
     [SerializeField] private List<MonoBehaviour> _appearitemlist;
 
-    private List<IItem> _statitemlist = new() , _bossitemlist = new List<IItem>(), _shopitemlist =new(), _overitemlist = new();
+    private List<IItem> _statitemlist = new() , _bossitemlist = new(), _shopitemlist =new(), _overitemlist = new();
     private List<IItem> _potionList =new();
     private List<IItem> _coinList = new();
 
     private Dictionary<ItemType, Dictionary<ItemGrade, int>> itemproprtion = new Dictionary<ItemType, Dictionary<ItemGrade, int>>();
     private Dictionary<Roomtype, Dictionary<RewardType, int>> roomproprtion = new Dictionary < Roomtype, Dictionary<RewardType, int>>();
 
-    private PlayerInventory _inventory;
     
     private void Start()
     {
-        _inventory = GameObject.FindFirstObjectByType<PlayerInventory>().GetComponent<PlayerInventory>();
-        foreach (var invenItem in _inventory.Inventory)
-        {
-            RemoveAppearanceItemList(invenItem);
-        }
         ListSetting();
     }
     public IItem GetRandomItem(Roomtype room)
@@ -48,8 +42,8 @@ public class RandomItem : MonoBehaviour
         if (compeclassif == RewardType.non) return null;
         
         IItem compeitem = GetRandomReward(compeclassif);
-        if (compeitem.GetItemData().type == ItemType.stat)
-            RemoveItemList(compeitem);
+        if (((Item)compeitem).ItemData.type == ItemType.stat)
+            RemoveItemList(compeitem as Item);
         
         return compeitem;
 
@@ -66,16 +60,15 @@ public class RandomItem : MonoBehaviour
         
     };
 
-    private void RemoveItemList(IItem item)
+    private void RemoveItemList(Item item)
     {
         for (int i = 0; i < Finditemproprtion(item); i++)
-            FindItemList(item).Remove(item);
+            FindItemList(item).Remove((IItem)item);
     }
 
-    private void RemoveAppearanceItemList(IItem removeItem)
+    private void RemoveAppearanceItemList(MonoBehaviour removeItem)
     {
-        if(removeItem.GetItemData().type == ItemType.stat)
-            _appearitemlist.Remove(removeItem as MonoBehaviour);
+        _appearitemlist.Remove(removeItem);
     }
 
     private void ListSetting()
@@ -90,7 +83,6 @@ public class RandomItem : MonoBehaviour
             foreach(GradeWeight b in a.Weight)
             {
                 itemproprtion[a.WhatItemType][b.Grade] = b.Weight ;
-                
             }
         }
 
@@ -108,30 +100,33 @@ public class RandomItem : MonoBehaviour
         }
         foreach (MonoBehaviour c in _appearitemlist)
         {
-            if(c is IItem a)
+            if(c is Item a)
             {
-                for (int i = 0; i < Finditemproprtion(a); i++)
-                    FindItemList(a).Add(a);
-                if (a.GetItemData().IsOverItem)
+                if (a.ItemData.IsOverItem)
                 {
-                    _overitemlist.Add(a);
+                    _overitemlist.Add(a as IItem);
                 }
+                if (PlayerInventory.Instance.Inventory.Contains(a.ItemData))
+                    continue;
+
+                for (int i = 0; i < Finditemproprtion(a); i++)
+                    FindItemList(a).Add(a as IItem);
             }
         }
     }
 
-    private int Finditemproprtion(IItem a)
+    private int Finditemproprtion(Item a)
     {
-        if(!itemproprtion.TryGetValue(a.GetItemData().type, out Dictionary<ItemGrade,int> b))
+        if(!itemproprtion.TryGetValue(a.ItemData.type, out Dictionary<ItemGrade,int> b))
         {
             b = new Dictionary<ItemGrade, int>();
-            itemproprtion[a.GetItemData().type] = b;
+            itemproprtion[a.ItemData.type] = b;
         }
-        return itemproprtion[a.GetItemData().type][a.GetItemData().Grade];
+        return itemproprtion[a.ItemData.type][a.ItemData.Grade];
     }
-    private List<IItem> FindItemList(IItem item)
+    private List<IItem> FindItemList(Item item)
     {
-        switch (item.GetItemData().type)
+        switch (item.ItemData.type)
         {
             case ItemType.stat:
                 return NewMethod(item);
@@ -141,9 +136,9 @@ public class RandomItem : MonoBehaviour
         }
     }
 
-    private List<IItem> NewMethod(IItem item)
+    private List<IItem> NewMethod(Item item)
     {
-        switch (item.GetItemData().Grade)
+        switch (item.ItemData.Grade)
         {
             case ItemGrade.Shop: return _shopitemlist;
             case ItemGrade.Boss: return _bossitemlist;

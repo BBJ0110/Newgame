@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Item
   - Ground
-  - Enemy
   - Spike
   - ShotgunBullet
   - Bullet
@@ -14,6 +13,9 @@ TagManager:
   - Weapon2
   - ' potion'
   - Potion
+  - boss
+  - Stend
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -23,11 +25,11 @@ TagManager:
   - UI
   - Player
   - Door
-  - Spike
+  - Obstruction
   - Wall
   - Enemy
-  - 
-  - 
+  - Frying Enemy
+  - Void
   - 
   - 
   - 
